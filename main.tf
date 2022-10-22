@@ -3,6 +3,11 @@ terraform {
   required_providers {
     aws = ">= 4.0"
   }
+  backend "s3" {
+    bucket = "admin-terraform-curso-state"
+    key    = "terraform.tfstate"
+    region = "us-east-1"
+  }
 }
 
 provider "aws" {
@@ -49,7 +54,7 @@ resource "aws_instance" "web2" {
 /*instancia importada da aws usando o terraform import*/
 resource "aws_instance" "web3" {
   ami           = "ami-09d3b3274b6c5d4aa"
-  instance_type = "t2.micro"
+  instance_type = "t2.nano"
 
   tags = {
     Name = "import"
