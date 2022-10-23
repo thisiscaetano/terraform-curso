@@ -13,7 +13,7 @@ terraform {
 provider "aws" {
   profile                  = "default"
   shared_credentials_files = ["~/.aws/credentials"]
-  region                   = "us-east-1"
+  region                   = var.region
 }
 
 data "aws_ami" "ubuntu" {
@@ -33,31 +33,31 @@ data "aws_ami" "ubuntu" {
 }
 
 resource "aws_instance" "web" {
-  ami           = data.aws_ami.ubuntu.id
-  instance_type = "t2.micro"
-
+  ami                     = data.aws_ami.ubuntu.id
+  instance_type           = var.int_type
+  disable_api_termination = var.disable_api_termination
   tags = {
-    Name = "HelloWorld"
+    Name = var.int_name[0]
     Environment : "dev"
   }
 }
 
 resource "aws_instance" "web2" {
-  ami           = data.aws_ami.ubuntu.id
-  instance_type = "t2.nano"
-
+  ami                     = data.aws_ami.ubuntu.id
+  instance_type           = var.int_type
+  disable_api_termination = var.disable_api_termination
   tags = {
-    Name = "HelloWorld2"
+    Name = var.int_name[1]
     Environment : "dev"
   }
 }
 /*instancia importada da aws usando o terraform import*/
 resource "aws_instance" "web3" {
-  ami           = "ami-09d3b3274b6c5d4aa"
-  instance_type = "t2.nano"
-
+  ami                     = var.amis[var.region]
+  instance_type           = var.int_type
+  disable_api_termination = var.disable_api_termination
   tags = {
-    Name = "import"
+    Name = var.int_name[2]
     Environment : "dev"
   }
 }
