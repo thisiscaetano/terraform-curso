@@ -46,6 +46,7 @@ resource "aws_instance" "web2" {
   ami                     = data.aws_ami.ubuntu.id
   instance_type           = var.int_type
   disable_api_termination = var.disable_api_termination
+  
   tags = {
     Name = var.int_name[1]
     Environment : "dev"
@@ -56,6 +57,8 @@ resource "aws_instance" "web3" {
   ami                     = var.amis[var.region]
   instance_type           = var.int_type
   disable_api_termination = var.disable_api_termination
+  user_data = file("./files/userdata.sh")
+  
   tags = {
     Name = var.int_name[2]
     Environment : "dev"
