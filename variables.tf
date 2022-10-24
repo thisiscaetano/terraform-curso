@@ -11,7 +11,7 @@ variable "disable_api_termination" {
 variable "int_name" {
   description = "lista de nomes para instancias"
   type        = list(string)
-  default     = ["server-1", "server-2", "server-3-import"]
+  default     = ["server-1", "server-2", "server-3-import", "server-4"]
 }
 
 variable "region" {

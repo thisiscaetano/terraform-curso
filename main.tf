@@ -18,7 +18,7 @@ provider "aws" {
 
 
 resource "aws_instance" "web3" {
-  count                   = 3
+  count                   = length(var.int_name)
   ami                     = var.amis[var.region]
   instance_type           = var.int_type
   disable_api_termination = var.disable_api_termination
